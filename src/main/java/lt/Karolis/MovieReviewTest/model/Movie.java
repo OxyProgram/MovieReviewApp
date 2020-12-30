@@ -1,37 +1,41 @@
 package lt.Karolis.MovieReviewTest.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.*;
+import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Date;
 
 @Entity
-public class Movie {
+@Table(name = "MOVIE", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "ID")})
+public class Movie implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @JsonProperty("original_title")
-    private String name;
+    @Column(name = "MOVIE_ID")
+    private String movieID;
 
-    //@JsonProperty("genres")
-    private String tag;
+    @Column(name = "REVIEW")
+    private String review;
 
-    @JsonProperty("release_date")
-    private String releaseDate;
+    @Column(name = "RATING")
+    private int rating;
+
+    @ManyToOne
+    private User user;
+
 
     public Movie() {
     }
 
-    public Movie(Long id, String name, String tag, String releaseDate) {
+    public Movie(Long id, User user, String movieID, String review, int rating) {
         this.id = id;
-        this.name = name;
-        this.tag = tag;
-        this.releaseDate = releaseDate;
+        this.user = user;
+        this.movieID = movieID;
+        this.review = review;
+        this.rating = rating;
     }
 
     public Long getId() {
@@ -42,27 +46,35 @@ public class Movie {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getMovieID() {
+        return movieID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMovieID(String movieID) {
+        this.movieID = movieID;
     }
 
-    public String getTag() {
-        return tag;
+    public String getReview() {
+        return review;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setReview(String review) {
+        this.review = review;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public int getRating() {
+        return rating;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

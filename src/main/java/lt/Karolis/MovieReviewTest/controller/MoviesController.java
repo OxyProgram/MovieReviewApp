@@ -1,26 +1,37 @@
 package lt.Karolis.MovieReviewTest.controller;
 
-import lt.Karolis.MovieReviewTest.model.Movie;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lt.Karolis.MovieReviewTest.dto.AddMovieRequest;
+import lt.Karolis.MovieReviewTest.dto.GetMoviesRequest;
+import lt.Karolis.MovieReviewTest.dto.MovieJSON;
+import lt.Karolis.MovieReviewTest.dto.SignupResponse;
+import lt.Karolis.MovieReviewTest.service.MovieService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/movies")
 public class MoviesController {
 
-    private String apiKey = "530c56d37a8200c3cb27b16bcc2e444c";
 
-    private RestTemplate restTemplate = new RestTemplate();
+    private final MovieService movieService;
 
-    @RequestMapping("/{movieId}")
-    public Movie getMovieInfo(@PathVariable("movieId") String movieId) {
-        Movie movie = restTemplate.getForObject(
-                "https://api.themoviedb.org/3/movie/" + movieId  + "?api_key=" +apiKey,
-                Movie.class);
-        return movie;
+    public MoviesController(MovieService movieService) {
+        this.movieService = movieService;
+    }
+
+    @RequestMapping("/getMovies")
+    @PostMapping
+    public ArrayList<MovieJSON> getMovieInfo(@RequestBody GetMoviesRequest request) {
+        return movieService.fetchMovies(request.getEmail());
+    }
+
+    @RequestMapping("/addMovie")
+    @PostMapping
+    public SignupResponse addMovie(@RequestBody AddMovieRequest request) {
+        if(movieService.addMovie(request))
+            return new SignupResponse(true);
+        return new SignupResponse(false);
     }
 
 }

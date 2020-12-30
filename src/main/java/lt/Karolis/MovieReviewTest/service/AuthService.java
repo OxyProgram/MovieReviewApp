@@ -32,7 +32,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
 
-    String websiteName = "http://localhost:8080";
+    String websiteName = "https://moviereview-test-1608553173564.azurewebsites.net";
 
     public AuthService(PasswordEncoder passwordEncoder, UserRepository userRepository, VerificationTokenRepository verificationTokenRepository, MailService mailService, AuthenticationManager authenticationManager, JwtProvider jwtProvider) {
         this.passwordEncoder = passwordEncoder;
@@ -48,6 +48,7 @@ public class AuthService {
         if(userRepository.findByEmail(registerRequest.getEmail()) != null)
             return false;
         User user = new User();
+        user.setUsername(registerRequest.getUsername());
         user.setEmail(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setCreated(Instant.now());
@@ -57,13 +58,9 @@ public class AuthService {
 
         String token = generateVerificationToken(user);
         String body = "Thank you for signing up to Movie Review App! \n " +
-                "Please click on the below url to activate your account : \n" +
-                "http://localhost:8080/api/auth/accountVerification/" + token;
+                "Please click on the below url to activate your account : \n" + websiteName +
+                "/api/auth/accountVerification/" + token;
 
-        /*mailService.sendMail(new NotificationEmail("Please Activate your Account",
-                user.getEmail(), "Thank you for signing up to Movie Review App! \n " +
-                "Please click on the below url to activate your account : \n" +
-                "http://localhost:8080/api/auth/accountVerification/" + token));*/
 
         mailService.sendMail(new NotificationEmail("Please Activate your Account",
                 user.getEmail(), body));
@@ -105,6 +102,7 @@ public class AuthService {
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.generateToken(authentication);
-        return new AuthenticationResponse(token, loginRequest.getEmail(), true);
+        return new AuthenticationResponse(userRepository.findByEmail(loginRequest.getEmail()).getUsername(),
+                token, loginRequest.getEmail(), true);
     }
 }
