@@ -1,13 +1,13 @@
 package lt.Karolis.MovieReviewTest.dto;
 
-public class DeleteUserRequest {
+public class UserEmailRequest {
 
     private String email;
 
-    public DeleteUserRequest() {
+    public UserEmailRequest() {
     }
 
-    public DeleteUserRequest(String email) {
+    public UserEmailRequest(String email) {
         this.email = email;
     }
 

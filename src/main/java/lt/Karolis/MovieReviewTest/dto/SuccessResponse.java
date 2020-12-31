@@ -1,13 +1,13 @@
 package lt.Karolis.MovieReviewTest.dto;
 
-public class SignupResponse {
+public class SuccessResponse {
 
     private boolean success;
 
-    public SignupResponse() {
+    public SuccessResponse() {
     }
 
-    public SignupResponse(boolean success) {
+    public SuccessResponse(boolean success) {
         this.success = success;
     }
 

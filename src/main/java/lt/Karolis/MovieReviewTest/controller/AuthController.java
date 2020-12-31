@@ -3,7 +3,7 @@ package lt.Karolis.MovieReviewTest.controller;
 import lt.Karolis.MovieReviewTest.dto.AuthenticationResponse;
 import lt.Karolis.MovieReviewTest.dto.LoginRequest;
 import lt.Karolis.MovieReviewTest.dto.RegisterRequest;
-import lt.Karolis.MovieReviewTest.dto.SignupResponse;
+import lt.Karolis.MovieReviewTest.dto.SuccessResponse;
 import lt.Karolis.MovieReviewTest.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +24,8 @@ public class AuthController {
     public Object signup(@RequestBody RegisterRequest registerRequest) {
         boolean emailExists = !authService.signup(registerRequest);
         if(!emailExists)
-            return new SignupResponse(true);
-        return new SignupResponse(false);
+            return new SuccessResponse(true);
+        return new SuccessResponse(false);
     }
 
     @GetMapping("/accountVerification/{token}")
