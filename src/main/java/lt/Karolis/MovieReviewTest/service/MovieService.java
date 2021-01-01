@@ -30,7 +30,6 @@ public class MovieService {
             movie.setReview(user.getMovieIDs().get(i).getReview());
             list.add(movie);
         }
-        user = null;
         return list;
     }
 

@@ -2,12 +2,7 @@ package lt.Karolis.MovieReviewTest.controller;
 
 import lt.Karolis.MovieReviewTest.dto.*;
 import lt.Karolis.MovieReviewTest.service.MovieService;
-import lt.Karolis.MovieReviewTest.service.UserService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @RestController
