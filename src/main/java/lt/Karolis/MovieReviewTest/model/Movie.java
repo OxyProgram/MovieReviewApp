@@ -23,7 +23,7 @@ public class Movie implements Serializable {
     @Column(name = "RATING")
     private int rating;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private User user;
 
 

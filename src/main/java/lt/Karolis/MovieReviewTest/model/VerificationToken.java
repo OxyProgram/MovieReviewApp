@@ -18,7 +18,7 @@ public class VerificationToken {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String token;
-    @OneToOne(fetch = LAZY)
+    @OneToOne(fetch = LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private User user;
     private Instant expiryDate;
 

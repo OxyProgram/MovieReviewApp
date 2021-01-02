@@ -25,7 +25,8 @@ public class AdminController {
     }
 
 
-    @PostMapping("/deleteUser")
+    @RequestMapping("/deleteUser")
+    @PostMapping
     public ResponseEntity<SuccessResponse> deleteUser(@RequestBody UserEmailRequest request) {
         return userService.deleteUser(request.getEmail());
     }

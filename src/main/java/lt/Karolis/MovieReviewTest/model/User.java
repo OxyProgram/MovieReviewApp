@@ -38,7 +38,7 @@ public class User implements Serializable {
     @Column(name = "ENABLED")
     private boolean enabled;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name="USER_ID")
     private List<Movie> movies;
 
