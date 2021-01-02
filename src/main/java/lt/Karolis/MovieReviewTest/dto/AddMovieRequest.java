@@ -7,9 +7,6 @@ public class AddMovieRequest {
     private String review;
     private int rating;
 
-    public AddMovieRequest() {
-    }
-
     public AddMovieRequest(String email, String movieId, String review, int rating) {
         this.email = email;
         this.movieId = movieId;

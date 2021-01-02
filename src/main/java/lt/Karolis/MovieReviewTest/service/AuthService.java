@@ -80,9 +80,7 @@ public class AuthService {
 
     public boolean verifyAccount(String token) {
         Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
-        if(fetchUserAndEnable(verificationToken.get()))
-            return true;
-        return false;
+        return fetchUserAndEnable(verificationToken.get());
     }
 
     @Transactional

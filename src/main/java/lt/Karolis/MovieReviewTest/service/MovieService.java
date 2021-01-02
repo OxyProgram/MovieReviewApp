@@ -2,7 +2,6 @@ package lt.Karolis.MovieReviewTest.service;
 
 import lt.Karolis.MovieReviewTest.dto.AddMovieRequest;
 import lt.Karolis.MovieReviewTest.dto.MovieJSON;
-import lt.Karolis.MovieReviewTest.dto.UserInfoResponse;
 import lt.Karolis.MovieReviewTest.model.Movie;
 import lt.Karolis.MovieReviewTest.model.User;
 import lt.Karolis.MovieReviewTest.repository.UserRepository;

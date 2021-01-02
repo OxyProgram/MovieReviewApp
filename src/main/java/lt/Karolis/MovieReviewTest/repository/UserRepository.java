@@ -1,8 +1,6 @@
 package lt.Karolis.MovieReviewTest.repository;
 
 import lt.Karolis.MovieReviewTest.model.User;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
