@@ -1,5 +1,10 @@
 package lt.Karolis.MovieReviewTest.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -7,6 +12,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "MOVIE", uniqueConstraints = {
         @UniqueConstraint(columnNames = "ID")})
+@JsonIgnoreProperties("user")
 public class Movie implements Serializable {
 
     @Id
@@ -23,7 +29,7 @@ public class Movie implements Serializable {
     @Column(name = "RATING")
     private int rating;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private User user;
 
 

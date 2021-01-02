@@ -2,12 +2,14 @@ package lt.Karolis.MovieReviewTest.service;
 
 import lt.Karolis.MovieReviewTest.dto.AddMovieRequest;
 import lt.Karolis.MovieReviewTest.dto.MovieJSON;
+import lt.Karolis.MovieReviewTest.dto.MovieReviewsRequest;
 import lt.Karolis.MovieReviewTest.model.Movie;
 import lt.Karolis.MovieReviewTest.model.User;
 import lt.Karolis.MovieReviewTest.repository.MovieRepository;
 import lt.Karolis.MovieReviewTest.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
+    @Transactional
     public ArrayList<MovieJSON> fetchMovies(String email) {
         User user = userRepository.findByEmail(email);
         ArrayList<MovieJSON> list = new ArrayList<>();
@@ -36,6 +39,7 @@ public class MovieService {
         return list;
     }
 
+    @Transactional
     public boolean addMovie(AddMovieRequest request) {
         try {
             User user = userRepository.findByEmail(request.getEmail());
@@ -53,9 +57,22 @@ public class MovieService {
         return true;
     }
 
-    public List<Movie> getReviews(String movieID) {
-        List<Movie> movie = movieRepository.findByMovieID(movieID);
-        return movie;
+    @Transactional
+    public List<MovieReviewsRequest> getReviews(String movieID) {
+        List<Movie> movies = movieRepository.findByMovieID(movieID);
+        if(movies.isEmpty())
+            return null;
+        int size = movies.size();
+        List<MovieReviewsRequest> list = new ArrayList<>();
+        for(int i = 0; i < size; i++) {
+            MovieReviewsRequest request = new MovieReviewsRequest();
+            request.setUsername(movies.get(i).getUser().getUsername());
+            request.setRating(movies.get(i).getRating());
+            request.setReview(movies.get(i).getReview());
+            list.add(request);
+        }
+
+        return list;
     }
 
 }

@@ -1,7 +1,6 @@
 package lt.Karolis.MovieReviewTest.controller;
 
 import lt.Karolis.MovieReviewTest.dto.*;
-import lt.Karolis.MovieReviewTest.model.Movie;
 import lt.Karolis.MovieReviewTest.service.MovieService;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class MoviesController {
 
     @RequestMapping("/getReviews")
     @PostMapping
-    public List<Movie> getReviews(@RequestBody GetReviewsRequest request) {
+    public List<MovieReviewsRequest> getReviews(@RequestBody GetReviewsRequest request) {
         return movieService.getReviews(request.getMovieID());
     }
 

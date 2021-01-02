@@ -1,6 +1,9 @@
 package lt.Karolis.MovieReviewTest.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,7 +41,7 @@ public class User implements Serializable {
     @Column(name = "ENABLED")
     private boolean enabled;
 
-    @OneToMany(cascade=CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(cascade=CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name="USER_ID")
     private List<Movie> movies;
 
