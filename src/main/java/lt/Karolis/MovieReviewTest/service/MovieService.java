@@ -4,18 +4,22 @@ import lt.Karolis.MovieReviewTest.dto.AddMovieRequest;
 import lt.Karolis.MovieReviewTest.dto.MovieJSON;
 import lt.Karolis.MovieReviewTest.model.Movie;
 import lt.Karolis.MovieReviewTest.model.User;
+import lt.Karolis.MovieReviewTest.repository.MovieRepository;
 import lt.Karolis.MovieReviewTest.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MovieService {
 
     private final UserRepository userRepository;
+    private final MovieRepository movieRepository;
 
-    public MovieService(UserRepository userRepository) {
+    public MovieService(UserRepository userRepository, MovieRepository movieRepository) {
         this.userRepository = userRepository;
+        this.movieRepository = movieRepository;
     }
 
     public ArrayList<MovieJSON> fetchMovies(String email) {
@@ -47,6 +51,11 @@ public class MovieService {
             return false;
         }
         return true;
+    }
+
+    public List<Movie> getReviews(String movieID) {
+        List<Movie> movie = movieRepository.findByMovieID(movieID);
+        return movie;
     }
 
 }
