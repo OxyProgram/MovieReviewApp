@@ -17,12 +17,14 @@ public class MoviesController {
         this.movieService = movieService;
     }
 
+    //Returns ALL reviews of a particular User. Accepts email as param.
     @RequestMapping("/getMovies")
     @PostMapping
     public ArrayList<MovieJSON> getMovieInfo(@RequestBody GetMoviesRequest request) {
         return movieService.fetchMovies(request.getEmail());
     }
 
+    //Adds a review of a Movie by User.
     @RequestMapping("/addMovie")
     @PostMapping
     public SuccessResponse addMovie(@RequestBody AddMovieRequest request) {
@@ -31,6 +33,7 @@ public class MoviesController {
         return new SuccessResponse(false);
     }
 
+    //Returns ALL reviews of a particular Movie. Accepts MovieId as param.
     @RequestMapping("/getReviews")
     @PostMapping
     public List<MovieReviewsRequest> getReviews(@RequestBody GetReviewsRequest request) {

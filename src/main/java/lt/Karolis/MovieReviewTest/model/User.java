@@ -41,7 +41,7 @@ public class User implements Serializable {
     @Column(name = "ENABLED")
     private boolean enabled;
 
-    @OneToMany(cascade=CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name="USER_ID")
     private List<Movie> movies;
 
