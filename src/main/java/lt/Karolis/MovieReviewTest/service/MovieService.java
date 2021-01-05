@@ -24,31 +24,41 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    @Transactional
     public ArrayList<MovieJSON> fetchMovies(String email) {
         User user = userRepository.findByEmail(email);
         ArrayList<MovieJSON> list = new ArrayList<>();
         for(int i = 0; i < user.getNumberOfMovies(); i++) {
             MovieJSON movie = new MovieJSON();
-            movie.setId(user.getMovieIDs().get(i).getId());
-            movie.setMovieID(user.getMovieIDs().get(i).getMovieID());
-            movie.setRating(user.getMovieIDs().get(i).getRating());
-            movie.setReview(user.getMovieIDs().get(i).getReview());
+            movie.setMovieID(user.getMovies().get(i).getMovieID());
+            movie.setMovieTitle(user.getMovies().get(i).getMovieTitle());
+            movie.setMovieReleased(user.getMovies().get(i).getMovieReleased());
+            movie.setMovieOverview(user.getMovies().get(i).getMovieOverview());
+            movie.setMovieThumbnail(user.getMovies().get(i).getMovieThumbnail());
+            movie.setReview(user.getMovies().get(i).getReview());
+            movie.setRating(user.getMovies().get(i).getRating());
+            //movie.setReview(user.getMovieIDs().get(i).getReview());
             list.add(movie);
         }
         return list;
     }
 
-    @Transactional
     public boolean addMovie(AddMovieRequest request) {
         try {
             User user = userRepository.findByEmail(request.getEmail());
+            for(Movie movie : user.getMovies()) {
+                if(movie.getMovieID().equals(request.getMovieId()))
+                    return false;
+            }
             Movie movie = new Movie();
             movie.setMovieID(request.getMovieId());
+            movie.setMovieTitle(request.getMovieTitle());
+            movie.setMovieReleased(request.getMovieReleased());
+            movie.setMovieOverview(request.getMovieOverview());
+            movie.setMovieThumbnail(request.getMovieThumbnail());
             movie.setReview(request.getReview());
             movie.setRating(request.getRating());
-            user.addMovie(movie);
-            user.setNumberOfMovies();
+            user.getMovies().add(movie);
+            user.addNumberOfMovies();
             userRepository.save(user);
         } catch (Exception e) {
             System.out.println("Exception adding a movie! Email: " + request.getEmail());
@@ -57,7 +67,6 @@ public class MovieService {
         return true;
     }
 
-    @Transactional
     public List<MovieReviewsRequest> getReviews(String movieID) {
         List<Movie> movies = movieRepository.findByMovieID(movieID);
         if(movies.isEmpty())

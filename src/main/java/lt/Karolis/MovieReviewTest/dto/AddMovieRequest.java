@@ -2,16 +2,53 @@ package lt.Karolis.MovieReviewTest.dto;
 
 public class AddMovieRequest {
 
-    private String email;
     private String movieId;
+    private String movieTitle;
+    private String movieReleased;
+    private String movieOverview;
+    private String movieThumbnail;
+    private String email;
     private String review;
     private int rating;
 
-    public AddMovieRequest(String email, String movieId, String review, int rating) {
-        this.email = email;
+    public String getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(String movieId) {
         this.movieId = movieId;
-        this.review = review;
-        this.rating = rating;
+    }
+
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
+    }
+
+    public String getMovieReleased() {
+        return movieReleased;
+    }
+
+    public void setMovieReleased(String movieReleased) {
+        this.movieReleased = movieReleased;
+    }
+
+    public String getMovieOverview() {
+        return movieOverview;
+    }
+
+    public void setMovieOverview(String movieOverview) {
+        this.movieOverview = movieOverview;
+    }
+
+    public String getMovieThumbnail() {
+        return movieThumbnail;
+    }
+
+    public void setMovieThumbnail(String movieThumbnail) {
+        this.movieThumbnail = movieThumbnail;
     }
 
     public String getEmail() {
@@ -20,14 +57,6 @@ public class AddMovieRequest {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(String movieId) {
-        this.movieId = movieId;
     }
 
     public String getReview() {

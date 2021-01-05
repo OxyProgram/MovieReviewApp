@@ -1,9 +1,6 @@
 package lt.Karolis.MovieReviewTest.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -110,13 +107,6 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-    public List<Movie> getMovieIDs() {
-        return movies;
-    }
-
-    public void setMovieIDs(List<Movie> movieIDs) {
-        this.movies = movieIDs;
-    }
 
     public int getNumberOfMovies() {
         return numberOfMovies;
@@ -130,6 +120,20 @@ public class User implements Serializable {
         this.movies.add(movie);
     }
 
+    public List<Movie> getMovies() {
+        return movies;
+    }
 
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+    }
+
+    public void setNumberOfMovies(int numberOfMovies) {
+        this.numberOfMovies = numberOfMovies;
+    }
+
+    public void addNumberOfMovies() {
+        this.numberOfMovies++;
+    }
 }
 

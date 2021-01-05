@@ -1,32 +1,35 @@
 package lt.Karolis.MovieReviewTest.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 
 @Entity
-@Table(name = "MOVIE", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "ID")})
+@Table(name = "MOVIE")
 @JsonIgnoreProperties("user")
 public class Movie implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
     private Long id;
 
     @Column(name = "MOVIE_ID")
     private String movieID;
 
-    @Column(name = "REVIEW")
+    private String movieTitle;
+
+    private String movieReleased;
+
+    @Lob
+    @Column
+    private String movieOverview;
+
+    private String movieThumbnail;
+
     private String review;
 
-    @Column(name = "RATING")
     private int rating;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -36,12 +39,16 @@ public class Movie implements Serializable {
     public Movie() {
     }
 
-    public Movie(Long id, User user, String movieID, String review, int rating) {
+    public Movie(Long id, String movieID, String movieTitle, String movieReleased, String movieOverview, String movieThumbnail, String review, int rating, User user) {
         this.id = id;
-        this.user = user;
         this.movieID = movieID;
+        this.movieTitle = movieTitle;
+        this.movieReleased = movieReleased;
+        this.movieOverview = movieOverview;
+        this.movieThumbnail = movieThumbnail;
         this.review = review;
         this.rating = rating;
+        this.user = user;
     }
 
     public Long getId() {
@@ -58,6 +65,38 @@ public class Movie implements Serializable {
 
     public void setMovieID(String movieID) {
         this.movieID = movieID;
+    }
+
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
+    }
+
+    public String getMovieReleased() {
+        return movieReleased;
+    }
+
+    public void setMovieReleased(String movieReleased) {
+        this.movieReleased = movieReleased;
+    }
+
+    public String getMovieOverview() {
+        return movieOverview;
+    }
+
+    public void setMovieOverview(String movieOverview) {
+        this.movieOverview = movieOverview;
+    }
+
+    public String getMovieThumbnail() {
+        return movieThumbnail;
+    }
+
+    public void setMovieThumbnail(String movieThumbnail) {
+        this.movieThumbnail = movieThumbnail;
     }
 
     public String getReview() {
